@@ -23,7 +23,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         this.pesistenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
-    private String getPesistenceClassName() {
+    public String getPesistenceClassName() {
         return pesistenceClass.getSimpleName();
     }
 
@@ -108,7 +108,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             StringBuilder builder = new StringBuilder("FROM ");
             builder.append(getPesistenceClassName());
             if (property != null && value != null) {
-                builder.append("WHER ")
+                builder.append("WHERE ")
                         .append(property)
                         .append(" = :value");
             }

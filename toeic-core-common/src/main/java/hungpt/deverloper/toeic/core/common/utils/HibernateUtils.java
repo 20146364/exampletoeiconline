@@ -9,7 +9,8 @@ public class HibernateUtils {
     private static SessionFactory buildSessionFactory() {
         try {
             //return sessionfactory form hibernate.cfg.xml
-            return new Configuration().configure().buildSessionFactory();
+            SessionFactory factory = new Configuration().configure().buildSessionFactory();
+            return factory;
         } catch (Throwable e) {
             System.out.println("Initial session factory fail");
             throw new ExceptionInInitializerError(e);
@@ -19,4 +20,6 @@ public class HibernateUtils {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+    // hibernate.xml đâu anh
+    //
 }

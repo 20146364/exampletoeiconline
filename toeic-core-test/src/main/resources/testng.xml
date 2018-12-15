@@ -2,7 +2,7 @@
 <suite name="TestAII">
     <test name="case1">
         <classes>
-            <class name="hungpt.deverloper.core.test.RoleTest"/>
+            <class name="hungpt.deverloper.core.test.LoginTest"/>
         </classes>
     </test>
 </suite>
