@@ -1,4 +1,4 @@
-﻿package hungpt.deverloper.web.logic.command;
+package hungpt.deverloper.web.logic.command;
 
 import hungpt.deverloper.core.dto.UserDTO;
 import hungpt.deverloper.core.web.command.AbstractCommand;

@@ -1,4 +1,4 @@
-﻿package hungpt.deverloper.core.service;
+package hungpt.deverloper.core.service;
 
 public interface UserService {
 }

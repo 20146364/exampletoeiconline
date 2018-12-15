@@ -1,4 +1,4 @@
-﻿package hungpt.deverloper.core.utils;
+package hungpt.deverloper.core.utils;
 
 import hungpt.deverloper.core.dto.UserDTO;
 import hungpt.deverloper.core.persistence.entity.UserEntity;

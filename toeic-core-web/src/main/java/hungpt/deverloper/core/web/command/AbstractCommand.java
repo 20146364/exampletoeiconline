@@ -1,4 +1,4 @@
-﻿package hungpt.deverloper.core.web.command;
+package hungpt.deverloper.core.web.command;
 
 import java.util.List;
 
@@ -32,7 +32,4 @@ public class AbstractCommand<T> {
         this.pojo = pojo;
     }
 
-
 }
-
-

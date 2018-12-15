@@ -1,8 +1,6 @@
-﻿package hungpt.deverloper.core.dto;
+package hungpt.deverloper.core.dto;
 
-import java.io.Serializable;
-
-public class RoleDTO implements Serializable {
+public class RoleDTO {
     private Integer roleID;
     private String roleName;
 

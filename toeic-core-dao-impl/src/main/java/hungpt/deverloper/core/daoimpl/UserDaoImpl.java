@@ -1,4 +1,4 @@
-﻿package hungpt.deverloper.core.daoimpl;
+package hungpt.deverloper.core.daoimpl;
 
 import hungpt.deverloper.core.dao.UserDao;
 import hungpt.deverloper.core.data.daoimpl.AbstractDao;

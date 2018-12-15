@@ -1,4 +1,4 @@
-﻿package hungpt.deverloper.core.dto;
+package hungpt.deverloper.core.dto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

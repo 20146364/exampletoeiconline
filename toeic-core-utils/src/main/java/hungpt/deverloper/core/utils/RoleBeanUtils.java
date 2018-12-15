@@ -1,8 +1,7 @@
-﻿package hungpt.deverloper.core.utils;
+package hungpt.deverloper.core.utils;
 
 import hungpt.deverloper.core.dto.RoleDTO;
 import hungpt.deverloper.core.persistence.entity.RoleEntity;
-
 
 public class RoleBeanUtils {
 
@@ -22,3 +21,4 @@ public class RoleBeanUtils {
 
 
 }
+
