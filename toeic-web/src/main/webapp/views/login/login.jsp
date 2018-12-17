@@ -19,6 +19,14 @@
 
                 <form action="${formUrl}" method="post">
                     <fieldset>
+                        <c:if test="${not empty messageResponse}">
+                            <div class="alert alert-block alert-${alert}">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="ace-icon fa fa-times"></i>
+                                </button>
+                                    ${messageResponse}
+                            </div>
+                        </c:if>
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
                                 <input type="text" class="form-control" placeholder="Username" name="pojo.userName"/>
@@ -28,7 +36,8 @@
 
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="password" class="form-control" placeholder="Password" name="pojo.passWord"/>
+                                <input type="password" class="form-control" placeholder="Password"
+                                       name="pojo.passWord"/>
                                 <i class="ace-icon fa fa-lock"></i>
                             </span>
                         </label>
