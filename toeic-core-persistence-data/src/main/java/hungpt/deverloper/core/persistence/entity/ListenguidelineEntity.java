@@ -5,10 +5,11 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "listenguideline")
+@Table(name = "listengui")
 public class ListenguidelineEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "listenguidelineid")
     private Integer listenguilineId;
 
     @Column(name = "title")
@@ -26,7 +27,7 @@ public class ListenguidelineEntity {
     @Column(name = "modtime")
     private Timestamp modTime;
 
-    @OneToMany(mappedBy = "listenguideline", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "listengui", fetch = FetchType.LAZY)
     private List<CommentEntity> listCommentEntity;
 
     public Integer getListenguilineId() {

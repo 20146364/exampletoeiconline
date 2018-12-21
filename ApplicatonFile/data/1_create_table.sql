@@ -13,7 +13,7 @@ CREATE TABLE use_mst(
     FOREIGN KEY (roleid) REFERENCES role_mst(roleid)
 );
 
-create table listenguideline
+create table listengui
 (
   listenguidelineid bigint       not null primary key auto_increment,
   title             varchar(255) null,
@@ -32,5 +32,5 @@ create table comment
   listenguidelineid bigint    null,
   createdtime       timestamp null,
   FOREIGN KEY (userid) REFERENCES use_mst (userid),
-  FOREIGN KEY (listenguidelineid) REFERENCES listenguideline (listenguidelineid)
+  FOREIGN KEY (listenguidelineid) REFERENCES listengui (listenguidelineid)
 );

@@ -12,7 +12,7 @@ public interface GenericDao<ID extends Serializable, T> {
 
     T findbyID(ID id);
 
-    Object[] findByProperty(String property, Object value, String sortExpress, String sortDerection);
+    Object[] findByProperty(String property, Object value, String sortExpress, String sortDerection, Integer offset, Integer limit);
 
     Integer delete(List<ID> ids);
 

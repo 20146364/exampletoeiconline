@@ -19,7 +19,7 @@ public class CommentEntity {
 
     @ManyToOne
     @JoinColumn(name = "listenguidelineid")
-    private ListenguidelineEntity listenguideline;
+    private ListenguidelineEntity listengui;
 
     @Column(name = "createdtime")
     private Timestamp createdTime;
@@ -49,11 +49,11 @@ public class CommentEntity {
     }
 
     public ListenguidelineEntity getListenguideline() {
-        return listenguideline;
+        return listengui;
     }
 
     public void setListenguideline(ListenguidelineEntity listenguideline) {
-        this.listenguideline = listenguideline;
+        this.listengui = listenguideline;
     }
 
     public Timestamp getCreatedTime() {

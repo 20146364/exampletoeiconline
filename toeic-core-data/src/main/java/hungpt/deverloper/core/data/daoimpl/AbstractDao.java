@@ -100,8 +100,8 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         return results;
     }
 
-    public Object[] findByProperty(String property, Object value, String sortExpress, String sortDerection) {
-        List<T> list = new ArrayList<T>();
+    public Object[] findByProperty(String property, Object value, String sortExpress, String sortDerection, Integer offset, Integer limit) {
+        List<T> list;
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -123,6 +123,14 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
                 query1.setParameter("value", value);
             }
 
+            if (offset != null && offset >= 0) {
+                query1.setFirstResult(offset);
+            }
+
+            if (limit != null && limit > 0) {
+                query1.setMaxResults(limit);
+            }
+
             list = query1.list();
             transaction.commit();
         } catch (HeadlessException e) {
@@ -139,7 +147,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         Transaction transaction = session.beginTransaction();
         Integer count = 0;
         try {
-            for (ID item: ids){
+            for (ID item : ids) {
                 T t = session.get(pesistenceClass, item);
                 session.delete(t);
                 count++;
