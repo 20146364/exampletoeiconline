@@ -1,8 +1,13 @@
 package hungpt.deverloper.web.logic.controller.admin;
 
 import hungpt.deverloper.core.dto.ListenguidelineDTO;
+import hungpt.deverloper.core.service.ListenguidelineService;
+import hungpt.deverloper.core.utils.ListentGuidelineBeanUtils;
 import hungpt.deverloper.core.web.common.WebConstants;
+import hungpt.deverloper.core.web.utils.RequestUtils;
+import hungpt.deverloper.toeic.core.common.constant.CoreConstant;
 import hungpt.deverloper.web.logic.command.ListenguidelineCommand;
+import hungpt.hust.core.service.impl.ListenguidelineServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,11 +21,13 @@ import java.util.List;
 
 @WebServlet("/admin-guideline-listen-list.html")
 public class ListenguidelineController extends HttpServlet {
+    private ListenguidelineService service = new ListenguidelineServiceImpl();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         ListenguidelineCommand command = new ListenguidelineCommand();
-        List<ListenguidelineDTO> list = new ArrayList<ListenguidelineDTO>();
+       /* List<ListenguidelineDTO> list = new ArrayList<ListenguidelineDTO>();
         ListenguidelineDTO dto = new ListenguidelineDTO();
 
         dto.setTitleName("Bài hướng dẫn số 1");
@@ -45,8 +52,13 @@ public class ListenguidelineController extends HttpServlet {
 
         command.setList(list);
         command.setMaxPageItem(2);
-        command.setTotalItem(list.size());
-
+        command.setTotalItem(list.size()); */
+        command.setMaxPageItem(2);
+        RequestUtils.initSearchBean(request, command);
+        Object[] obj = service.findListenGuideline(null, null, command.getSortExpression(), command.getSortDirection(), command.getFirstItem(), command.getFirstItem());
+        command.setList((List<ListenguidelineDTO>)obj[1]);
+        command.setTotalItem(Integer.parseInt(obj[0].toString()));
+        request.setAttribute(WebConstants.LIST_ITEMS, command);
         request.setAttribute(WebConstants.LIST_ITEMS, command);
 
 
@@ -55,7 +67,7 @@ public class ListenguidelineController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
     }
 
 }

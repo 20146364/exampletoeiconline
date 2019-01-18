@@ -30,6 +30,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
 
     public List<T> findAll() {
         List<T> list;
+
         Transaction transaction;
         Session session = HibernateUtils.getSessionFactory().openSession();
         transaction = session.beginTransaction();
@@ -100,8 +101,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         return results;
     }
 
-    public Object[] findByProperty(String property, Object value, String sortExpress, String sortDerection, Integer offset, Integer limit) {
+    public Object[] findByProperty(String property, Object value, String sortExpress,
+                                   String sortDerection, Integer offset, Integer limit) {
         List<T> list;
+        Object item;
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -132,6 +135,23 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             }
 
             list = query1.list();
+
+            StringBuilder count = new StringBuilder("SELECT COUNT(*) FROM ");
+            count.append(getPesistenceClassName());
+            if (property != null && value != null) {
+                count.append("WHERE ")
+                        .append(property)
+                        .append(" = :value");
+            }
+
+
+            Query query2 = session.createQuery(count.toString());
+
+            if (value != null) {
+                query2.setParameter("value", value);
+            }
+
+            item = query2.list().get(0);
             transaction.commit();
         } catch (HeadlessException e) {
             transaction.rollback();
@@ -139,7 +159,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         } finally {
             session.close();
         }
-        return new Object[]{list.size(), list};
+        return new Object[]{item, list};
     }
 
     public Integer delete(List<ID> ids) {
