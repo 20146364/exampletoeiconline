@@ -10,24 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 
 public class RequestUtils {
     private static final Logger LOGGER = Logger.getLogger(RequestUtils.class);
-    public static void initSearchBean(HttpServletRequest request, AbstractCommand command) {
-        String sortExpression = request.getParameter(new ParamEncoder(command.getTableID()).encodeParameterName(TableTagParameters.PARAMETER_SORT));
-        String sortDerection = request.getParameter(new ParamEncoder(command.getTableID()).encodeParameterName(TableTagParameters.PARAMETER_ORDER));
-        String pageStr = request.getParameter(new ParamEncoder(command.getTableID()).encodeParameterName(TableTagParameters.PARAMETER_PAGE));
-        Integer page = 1;
-        if (StringUtils.isBlank(pageStr)) {
-            try {
-                page = Integer.parseInt(pageStr);
-            } catch (Exception e) {
-                LOGGER.error("error");
-                e.printStackTrace();
-            }
 
+    public static void initSearchBean(HttpServletRequest request, AbstractCommand bean) {
+        if (bean != null) {
+            String sortExpression = request.getParameter(new ParamEncoder(bean.getTableID()).encodeParameterName(TableTagParameters.PARAMETER_SORT));
+            String sortDirection = request.getParameter(new ParamEncoder(bean.getTableID()).encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+            String pageStr = request.getParameter(new ParamEncoder(bean.getTableID()).encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+
+            Integer page = 1;
+            if (StringUtils.isNotBlank(pageStr)) {
+                try {
+                    page = Integer.valueOf(pageStr);
+                } catch (Exception e) {
+                    //ignore
+                }
+            }
+            bean.setPage(page);
+            bean.setSortDirection(sortDirection);
+            bean.setSortExpression(sortExpression);
+            bean.setFirstItem((bean.getPage() - 1) * bean.getMaxPageItem());
         }
-        command.setPage(page);
-        command.setSortDirection(sortDerection);
-        command.setSortExpression(sortExpression);
-        command.setFirstItem((command.getPage() - 1) * command.getMaxPageItem());
     }
 
 }

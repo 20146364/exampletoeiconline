@@ -4,11 +4,11 @@
 <html>
 <head>
     <title><fmt:message key="label.guideline.listen.edit" bundle="${lang}"/></title>
-    <style>
-        .error{
-            color: red;
-        }
-    </style>
+    <%--<style>--%>
+        <%--.error{--%>
+            <%--color: red;--%>
+        <%--}--%>
+    <%--</style>--%>
 </head>
 <body>
 <div class="main-content">

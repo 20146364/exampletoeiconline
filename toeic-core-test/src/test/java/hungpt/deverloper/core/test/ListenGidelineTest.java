@@ -14,11 +14,11 @@ public class ListenGidelineTest {
         listenGuidelineDao = new ListenguidelineImpl();
     }
 
-    @Test
-    public void testFindByProperties() {
-        ListenguidelineDao listenGuidelineDao = new ListenguidelineImpl();
-        Object[] result = listenGuidelineDao.findByProperty(null, null, null, null, 2, 2);
-    }
+//    @Test
+//    public void testFindByProperties() {
+//        ListenguidelineDao listenGuidelineDao = new ListenguidelineImpl();
+//        Object[] result = listenGuidelineDao.findByProperty(null, null, null, null, 2, 2);
+//    }
 
 //    @Test
 //    public void checkApiFindbyproperty() {

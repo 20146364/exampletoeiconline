@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T> {
 
@@ -101,20 +102,35 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         return results;
     }
 
-    public Object[] findByProperty(String property, Object value, String sortExpress,
+    public Object[] findByProperty(Map<String, Object> property, String sortExpress,
                                    String sortDerection, Integer offset, Integer limit) {
         List<T> list;
-        Object item;
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
+        String[] params = new String[property.size()];
+        Object[] values = new Object[property.size()];
+        int i = 0;
+        for (Map.Entry items : property.entrySet()) {
+            params[i] = (String) items.getKey();
+            values[i] = items.getValue();
+            i++;
+        }
         try {
             StringBuilder builder = new StringBuilder("FROM ");
             builder.append(getPesistenceClassName());
-            if (property != null && value != null) {
-                builder.append("WHERE ")
-                        .append(property)
-                        .append(" = :value");
+
+            if (property.size() > 0) {
+                for (int j = 0; j < property.size(); j++) {
+                    if (j == 0) {
+                        builder.append(" WHERE ");
+                    } else {
+                        builder.append(" AND ");
+                    }
+                    builder.append(params[j])
+                            .append(" =:" + params[j] + "");
+                }
             }
+
             if (sortExpress != null && sortDerection != null) {
                 builder.append(" ORDER BY ")
                         .append(sortExpress)
@@ -122,8 +138,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             }
             Query query1 = session.createQuery(builder.toString());
 
-            if (value != null) {
-                query1.setParameter("value", value);
+            if (property.size() > 0) {
+                for (int k = 0; k < property.size(); k++) {
+                    query1.setParameter(params[k], values[k]);
+                }
             }
 
             if (offset != null && offset >= 0) {
@@ -136,22 +154,6 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
 
             list = query1.list();
 
-            StringBuilder count = new StringBuilder("SELECT COUNT(*) FROM ");
-            count.append(getPesistenceClassName());
-            if (property != null && value != null) {
-                count.append("WHERE ")
-                        .append(property)
-                        .append(" = :value");
-            }
-
-
-            Query query2 = session.createQuery(count.toString());
-
-            if (value != null) {
-                query2.setParameter("value", value);
-            }
-
-            item = query2.list().get(0);
             transaction.commit();
         } catch (HeadlessException e) {
             transaction.rollback();
@@ -159,7 +161,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         } finally {
             session.close();
         }
-        return new Object[]{item, list};
+        return new Object[]{list.size(), list};
     }
 
     public Integer delete(List<ID> ids) {

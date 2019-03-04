@@ -12,7 +12,7 @@ import java.io.IOException;
 public class WebController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/web/web.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/web/home.jsp");
         dispatcher.forward(request, response);
     }
 

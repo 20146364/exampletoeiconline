@@ -16,6 +16,7 @@ public class ListentGuidelineBeanUtils {
         dto.setImagePath(entity.getImagePath());
         dto.setContent(entity.getContent());
         dto.setCreatedTime(entity.getCreatedTime());
+        dto.setModTime(entity.getModTime());
         return dto;
     }
 
@@ -26,6 +27,7 @@ public class ListentGuidelineBeanUtils {
         entity.setImagePath(dto.getImagePath());
         entity.setContent(dto.getContent());
         entity.setCreatedTime(dto.getCreatedTime());
+        entity.setModTime(dto.getModTime());
         return entity;
     }
 

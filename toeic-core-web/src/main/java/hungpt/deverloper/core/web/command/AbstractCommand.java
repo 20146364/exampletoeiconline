@@ -10,10 +10,11 @@ public class AbstractCommand<T> {
     private String sortDirection;
     private List<T> list;
     private String crudaction;
-    private String tableID = "tableList";
+    private String tableID = "tableID";
     protected T pojo;
     private String messageRespone;
     private int page = 1;
+    private String urlType;
 
     public int getMaxPageItem() {
         return maxPageItem;
@@ -102,5 +103,13 @@ public class AbstractCommand<T> {
 
     public void setList(List<T> list) {
         this.list = list;
+    }
+
+    public String getUrlType() {
+        return urlType;
+    }
+
+    public void setUrlType(String urlType) {
+        this.urlType = urlType;
     }
 }

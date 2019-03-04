@@ -46,7 +46,10 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href="<c:url value="/admin-guideline-listen-list.html"/>">
+                    <c:url value="/admin-guideline-listen-list.html" var="listenGuidelineList">
+                        <c:param name="urlType" value="url_list" />
+                    </c:url>
+                    <a href="${listenGuidelineList}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         <fmt:message key="label.guideline.listen.list" bundle="${lang}"/>
                     </a>
